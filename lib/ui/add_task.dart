@@ -24,7 +24,11 @@ class _AddTaskState extends State<AddTask> {
   bool isEdit = false;
   String? id;
 
-  final List<String> taskItems = ['pending', 'completed'];
+  final List<String> taskItems = [
+    'Pending',
+    'Completed',
+  ];
+
   String? selectedValue;
 
   @override
@@ -35,7 +39,9 @@ class _AddTaskState extends State<AddTask> {
       isEdit = true;
       id = todo['_id'];
       final title = todo['title'];
+      final status = todo['status'];
       _titleController.text = title;
+      selectedValue = status;
     }
   }
 
@@ -138,13 +144,14 @@ class _AddTaskState extends State<AddTask> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      //labelText: 'Status',
+                      labelText: 'Task Status',
                       // helperText: 'hello',
                     ),
                     hint: const Text(
-                      'Task Status',
+                      '',
                       style: TextStyle(fontSize: 14),
                     ),
+                    value: selectedValue ?? taskItems.first,
                     items: taskItems
                         .map(
                           (item) => DropdownMenuItem<String>(
@@ -193,8 +200,7 @@ class _AddTaskState extends State<AddTask> {
                 ),
                 const SizedBox(height: 15),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextButton(
                       onPressed: () {
@@ -206,7 +212,6 @@ class _AddTaskState extends State<AddTask> {
                       ),
                       child: const Text('Cancel'),
                     ),
-                    const SizedBox(width: 15),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.purple[300],
@@ -214,6 +219,8 @@ class _AddTaskState extends State<AddTask> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
+                          _formKey.currentState?.save();
+
                           isEdit
                               ? context.read<UpdateCubit>().updateTask(
                                     id: id!,

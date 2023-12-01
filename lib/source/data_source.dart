@@ -1,24 +1,19 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:task_app/common/constants.dart';
 import 'package:task_app/model/task.dart';
 
 class DataSource {
-  final List<TaskModel> _items = [];
+  List<TaskModel> totalList = [];
 
   Future<Either<String, List<TaskModel>>> fetchData() async {
     try {
       final Dio dio = Dio();
       final res = await dio.get(GlobalVariable.baseUrl);
-      final task =
-          List.from(res.data).map((e) => TaskModel.fromMap(e)).toList();
+      totalList = List.from(res.data).map((e) => TaskModel.fromMap(e)).toList();
 
-      _items.clear();
-      _items.addAll(task);
-
-      return Right(_items);
+      return Right(totalList);
     } on DioException catch (e) {
       return Left(e.response?.data["message"] ?? "Unable to fetch product");
     } catch (e) {
