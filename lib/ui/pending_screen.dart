@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:task_app/add_task.dart';
+import 'package:task_app/ui/add_task.dart';
 import 'package:task_app/common/bloc/common_state.dart';
 import 'package:task_app/common/utils/confirm_delete_dialog.dart';
 import 'package:task_app/common/utils/search_delegate.dart';

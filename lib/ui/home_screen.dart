@@ -3,7 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:task_app/ui/pending_screen.dart';
 import 'package:task_app/ui/completed_screen.dart';
 
-import '../add_task.dart';
+import 'add_task.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
